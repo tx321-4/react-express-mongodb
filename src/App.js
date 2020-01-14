@@ -8,16 +8,15 @@ import './App.css';
 
 class App extends React.Component{
   render() {
-    console.log(this.props)
-    const store = this.props.store;
-    const num = store.getState();
-    const addGUN = this.props.addGUN;
-    const removeGUN = this.props.removeGUN
+    // console.log(this.props)
+    // const store = this.props.store;
+    // const num = store.getState();
+
     let boss = '李云龙';
     return (
       <div>
         <h2>独立团，团长{boss}</h2>
-        <h3>现在有机枪{num}把</h3>
+        <h3>现在有机枪{this.props.num}把</h3>
         <button onClick={this.props.addGUN}>申请武器</button>
         <button onClick={this.props.removeGUN}>上交武器</button>
         <button onClick={this.props.addGunAsync}>拖两天再给</button>
@@ -30,7 +29,7 @@ class App extends React.Component{
 
 const mapStateToProps = (state) =>{
   return {
-    num: state.counter
+    num: state
   }
 }
 
@@ -70,7 +69,7 @@ class FirstYin extends React.Component{
     return (
       <div>
         <h2>一营营长,{this.props.leader}</h2>
-        <Button type="primary" onClick={this.addSolder}>新兵入伍</Button>
+        <button type="primary" onClick={this.addSolder}>新兵入伍</button>
 
         <List renderHeader={() => '士兵列表'} className="my-list">
           {this.state.solders.map(solder=>{

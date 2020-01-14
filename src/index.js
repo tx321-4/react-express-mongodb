@@ -4,17 +4,37 @@ import './index.css';
 import App from './App';
 import {createStore, applyMiddleware, compose} from 'redux';
 import thunk from 'redux-thunk';
-import {counter, addGUN, removeGUN, addGunAsync} from './index.redux'
+import {Provider} from 'react-redux'
+import {BrowserRouter, Route, Redirect, Switch } from 'react-router-dom'
+import Dashboard from './Dashboard';
+import {counter} from './index.redux'
 import * as serviceWorker from './serviceWorker';
 
-const store = createStore(counter, applyMiddleware(thunk))
-function render() {
-  ReactDOM.render(<App store={store} addGUN={addGUN} removeGUN={removeGUN} />, document.getElementById('root'));
 
-}
-render();
 
-store.subscribe(render)
+const store = createStore(counter, compose(
+  applyMiddleware(thunk),
+  window.devToolsExtension ? window.devToolsExtension() : f => f
+))
+
+// const init = store.getState();
+// console.log(init+'');
+
+
+  ReactDOM.render(
+    <Provider store={store}>
+      <BrowserRouter>
+        <Switch>
+          <Route path="/" exact component={App}></Route>
+          <Route path="/dashboard/" component={Dashboard}></Route>
+          <Redirect to="/"></Redirect>
+        </Switch>
+      </BrowserRouter>
+      
+    </Provider>,
+  document.getElementById('root'));
+
+
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
