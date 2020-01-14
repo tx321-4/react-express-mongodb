@@ -1,6 +1,7 @@
 import React from 'react';
 import {Link, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
+import {logout} from './Auth.redux'
 
 function Yiying() {
   return <h2>一营1</h2>
@@ -16,6 +17,7 @@ function Qibinglian() {
 
 class Dashboard extends React.Component{
   render() {
+    const redirectToLogin = <Redirect to='/login'></Redirect>
     const app = (
       <div>
         <ul>
@@ -39,10 +41,16 @@ class Dashboard extends React.Component{
       </div>
     )
     
-    return app
+    return this.props.isAuth ? app : redirectToLogin;
   }
 }
 
-// Dashboard = connect(Dashboard);
+const mapStateToProps = (state) => {
+  return {
+    state: state.auth
+  }
+}
+const actionCreators = {logout};
+ Dashboard = connect(mapStateToProps, actionCreators)(Dashboard);
 
 export default Dashboard;

@@ -28,8 +28,9 @@ class App extends React.Component{
 }
 
 const mapStateToProps = (state) =>{
+  console.log(state);
   return {
-    num: state
+    num: state.counter
   }
 }
 
@@ -69,7 +70,7 @@ class FirstYin extends React.Component{
     return (
       <div>
         <h2>一营营长,{this.props.leader}</h2>
-        <button type="primary" onClick={this.addSolder}>新兵入伍</button>
+        <Button type="primary" onClick={this.addSolder}>新兵入伍</Button>
 
         <List renderHeader={() => '士兵列表'} className="my-list">
           {this.state.solders.map(solder=>{

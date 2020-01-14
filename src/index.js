@@ -6,19 +6,18 @@ import {createStore, applyMiddleware, compose} from 'redux';
 import thunk from 'redux-thunk';
 import {Provider} from 'react-redux'
 import {BrowserRouter, Route, Redirect, Switch } from 'react-router-dom'
+import Auth from './Auth';
 import Dashboard from './Dashboard';
-import {counter} from './index.redux'
+import reducers from './reducer';
+// import {counter} from './index.redux'
 import * as serviceWorker from './serviceWorker';
 
 
 
-const store = createStore(counter, compose(
+const store = createStore(reducers, compose(
   applyMiddleware(thunk),
   window.devToolsExtension ? window.devToolsExtension() : f => f
 ))
-
-// const init = store.getState();
-// console.log(init+'');
 
 
   ReactDOM.render(
@@ -26,6 +25,7 @@ const store = createStore(counter, compose(
       <BrowserRouter>
         <Switch>
           <Route path="/" exact component={App}></Route>
+          <Route path="/login"  component={Auth}></Route>
           <Route path="/dashboard/" component={Dashboard}></Route>
           <Redirect to="/"></Redirect>
         </Switch>
